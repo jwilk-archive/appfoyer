@@ -14,7 +14,6 @@ install:
 - pip install pydiatra $pyflakes
 - pip install restructuredtext-lint
 script:
-- ./trava .
 - python3 -m pyflakes .
 - python3 -m pydiatra .
 - restructuredtext-lint --encoding=UTF-8 README

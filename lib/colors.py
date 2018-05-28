@@ -14,6 +14,7 @@ class _seq:
     yellow = '\x1B[33m'
     cyan = '\x1B[36m'
     bold = '\x1B[1m'
+    dim = '\x1B[1;30m'
     off = '\x1B[0m'
     reverse = '\x1B[7m'
     unreverse = '\x1B[27m'

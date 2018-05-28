@@ -1,28 +1,28 @@
 Overview
 ========
 
-**trava** is a tiny command-line Travis CI client.
+**appfoyer** is a tiny command-line Appveyor client.
 
 Usage
 =====
 
-* show information about the latest branches::
+* show build history::
 
-      trava https://travis-ci.org/<user>/<project>
+      appfoyer https://ci.appveyor.com/project/<user>/<project>/history
 
   or, for the GitHub repo in current working directory::
 
-      trava .
+      appfoyer .
 
 * show information about the build::
 
-      trava https://travis-ci.org/<user>/<project>/build/<build-id>
+      appfoyer https://ci.appveyor.com/project/<user>/<project>/build/<version>
 
 * show the job log::
 
-      trava https://travis-ci.org/<user>/<project>/jobs/<job-id>
+      appfoyer https://ci.appveyor.com/project/<user>/<project>/build/<version>/job/<job-id>
 
-You can omit the ``https://travis-ci.org/`` prefix.
+You can omit the ``https://ci.appveyor.com/project/`` prefix.
 
 Prerequisites
 =============
