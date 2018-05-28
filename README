@@ -27,7 +27,7 @@ You can omit the ``https://ci.appveyor.com/project/`` prefix.
 Prerequisites
 =============
 
-* Python ≥ 3.3
+* Python ≥ 3.3; or ≥ 3.4 on Windows
 
 * colorama_
 
