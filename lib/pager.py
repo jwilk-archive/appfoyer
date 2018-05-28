@@ -27,6 +27,9 @@ def get_default_pager():
 
 @contextlib.contextmanager
 def autopager():
+    if os.name == 'nt':
+        yield
+        return
     if not sys.stdout.isatty():
         yield
         return
