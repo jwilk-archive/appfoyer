@@ -14,9 +14,11 @@ before_install:
 - pyflakes=pyflakes
 - if [[ $TRAVIS_PYTHON_VERSION = 3.3 ]]; then pyflakes='pyflakes<2'; fi
 install:
+- pip install colorama
 - pip install pydiatra $pyflakes
 - pip install restructuredtext-lint
 script:
+- ./appfoyer .
 - python3 -m pyflakes .
 - python3 -m pydiatra .
 - restructuredtext-lint --encoding=UTF-8 README
