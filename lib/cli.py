@@ -93,7 +93,7 @@ def show_history(options, project):
     for build in data['builds']:
         template = '{version} {branch} {status}'
         curious = False
-        if build['finished'] is None:
+        if build.get('finished') is None:
             template = '{t.yellow}' + template
         elif build['status'] != 'success':
             template = '{t.bold}{t.red}' + template
@@ -121,7 +121,7 @@ def show_build(options, project, version):
     for job in data:
         template = '{version} {name}'
         error = False
-        if job['finished'] is None:
+        if job.get('finished') is None:
             template = '{t.yellow}' + template
         elif job['status'] != 'success':
             error = True
