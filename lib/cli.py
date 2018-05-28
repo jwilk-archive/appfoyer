@@ -80,6 +80,7 @@ def main():
             break
     else:
         ap.error('unsupported URL')
+    lib.colors.init()
     with lib.pager.autopager():
         return cmd(options, **match.groupdict())
 

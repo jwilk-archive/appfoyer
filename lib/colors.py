@@ -8,6 +8,10 @@ color terminal support
 import builtins
 import re
 
+import colorama
+
+init = colorama.init
+
 class _seq:
     red = '\x1B[31m'
     green = '\x1B[32m'
@@ -53,6 +57,7 @@ def print(_s='', **kwargs):
     builtins.print(format(_s, **kwargs))
 
 __all__ = [
+    'init',
     'format',
     'print',
 ]
