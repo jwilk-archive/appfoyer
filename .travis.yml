@@ -7,6 +7,9 @@ python:
 - "3.5"
 - "3.6"
 - "3.7-dev"
+branches:
+  except:
+  - appveyor
 before_install:
 - pyflakes=pyflakes
 - if [[ $TRAVIS_PYTHON_VERSION = 3.3 ]]; then pyflakes='pyflakes<2'; fi
