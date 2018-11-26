@@ -17,9 +17,9 @@ install:
 - python3 -m pip install pydiatra $pyflakes
 - python3 -m pip install restructuredtext-lint
 script:
-- ./appfoyer .
 - python3 -m pyflakes .
 - python3 -m pydiatra .
 - restructuredtext-lint --encoding=UTF-8 README
+- ./appfoyer .
 
 # vim:ts=2 sts=2 sw=2 et
