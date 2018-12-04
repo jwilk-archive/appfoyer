@@ -144,8 +144,33 @@ def show_build(options, project, version):
         lib.colors.print(template, url=url, space='')
         print()
 
-@dispatch(r'build/(?P<version>[^/\s]+)/job/(?P<job_id>\w+)')
-def show_job(options, project, version, job_id):
+@dispatch(r'builds/(?P<build_id>\d+)')
+def show_build_by_id(options, project, build_id):
+    url = 'https://ci.appveyor.com/api/projects/{project}/builds/{id}'
+    url = url.format(project=project, id=build_id)
+    data = get_json(url)
+    data = data['build']['jobs']
+    for job in data:
+        template = '{name}'
+        error = False
+        if job.get('finished') is None:
+            template = '{t.yellow}' + template
+        elif job['status'] != 'success':
+            error = True
+            template = '{t.bold}{t.red}' + template
+        template += '{t.off}'
+        lib.colors.print(template, name=job['name'])
+        url = 'https://ci.appveyor.com/project/{project}/builds/{build_id}/job/{job_id}'
+        url = url.format(project=project, build_id=build_id, job_id=job['jobId'])
+        template = '{t.cyan}'
+        if error:
+            template += '{t.bold}'
+        template += '{url}{t.off}'
+        lib.colors.print(template, url=url, space='')
+        print()
+
+@dispatch(r'builds?/[^/\s]+/job/(?P<job_id>\w+)')
+def show_job(options, project, job_id):
     url = 'https://ci.appveyor.com/api/buildjobs/{id}/console'.format(id=job_id)
     url = url.format(id=job_id)
     with get(url) as fp:

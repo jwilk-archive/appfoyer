@@ -18,9 +18,17 @@ Usage
 
       appfoyer https://ci.appveyor.com/project/<user>/<project>/build/<version>
 
+  or::
+
+      appfoyer https://ci.appveyor.com/project/<user>/<project>/builds/<build-id>
+
 * show the job log::
 
       appfoyer https://ci.appveyor.com/project/<user>/<project>/build/<version>/job/<job-id>
+
+  or::
+
+      appfoyer https://ci.appveyor.com/project/<user>/<project>/builds/<build-id>/job/<job-id>
 
 You can omit the ``https://ci.appveyor.com/project/`` prefix.
 
