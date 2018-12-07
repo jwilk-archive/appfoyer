@@ -1,1 +1,1 @@
-lambda: (yield from 0)  # Python >= 3.3 is required
+type(lambda: (yield from []))  # Python >= 3.3 is required
