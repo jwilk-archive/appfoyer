@@ -16,8 +16,10 @@ branches:
 before_install:
 - pyflakes=pyflakes
 - if [[ $TRAVIS_PYTHON_VERSION = 3.3 ]]; then pyflakes+='<2'; fi
+- colorama=colorama
+- if [[ $TRAVIS_PYTHON_VERSION = 3.[34] ]]; then colorama+='<0.4'; fi
 install:
-- python3 -m pip install colorama
+- python3 -m pip install $colorama
 - python3 -m pip install pydiatra $pyflakes
 - python3 -m pip install restructuredtext-lint
 script:
