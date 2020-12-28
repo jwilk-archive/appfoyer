@@ -8,7 +8,6 @@ command-line interface
 import argparse
 import io
 import json
-import os
 import re
 import subprocess
 import sys
@@ -26,10 +25,7 @@ def get(url, headers=()):
         {'User-Agent': user_agent}
     )
     request = urllib.request.Request(url, headers=headers)
-    ca_options = {}
-    if sys.version_info < (3, 4, 3):
-        ca_options.update(cadefault=True)
-    return urllib.request.urlopen(request, **ca_options)
+    return urllib.request.urlopen(request)
 
 def get_json(url, headers=()):
     headers = dict(headers)
@@ -66,8 +62,8 @@ def get_git_url():
         return
 
 def main():
-    if os.name == 'nt' and sys.version_info < (3, 4):
-        raise RuntimeError('Python >= 3.4 is required')
+    if sys.version_info < (3, 4, 3):
+        raise RuntimeError('Python >= 3.4.3 is required')
     ap = argparse.ArgumentParser()
     ap.add_argument('url', metavar='URL')
     options = ap.parse_args()
