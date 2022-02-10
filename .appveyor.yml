@@ -1,7 +1,3 @@
-branches:
-  except:
-  - travis
-
 environment:
   matrix:
   - PYTHON: Python34
