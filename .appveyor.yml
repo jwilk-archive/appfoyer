@@ -4,6 +4,9 @@ environment:
   matrix:
   - PYTHON: Python36
   - PYTHON: Python37
+  - PYTHON: Python38
+  - PYTHON: Python39
+  - PYTHON: Python310
 
 install:
 - SET PATH=C:\\%PYTHON%;%PATH%
