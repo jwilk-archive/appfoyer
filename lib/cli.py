@@ -10,7 +10,6 @@ import io
 import json
 import re
 import subprocess
-import sys
 import urllib.parse
 import urllib.request
 
@@ -62,8 +61,6 @@ def get_git_url():
         return
 
 def main():
-    if sys.version_info < (3, 4, 3):
-        raise RuntimeError('Python >= 3.4.3 is required')
     ap = argparse.ArgumentParser()
     ap.add_argument('url', metavar='URL')
     options = ap.parse_args()
