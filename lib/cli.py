@@ -74,7 +74,7 @@ def main():
         ap.error('unsupported URL')
     for regex, cmd in _dispatch:
         regex = ('/' if regex else '') + regex
-        regex = r'\A/project/(?P<project>[\w.-]+/[\w.-]+){re}\Z'.format(re=regex)
+        regex = fr'\A/project/(?P<project>[\w.-]+/[\w.-]+){regex}\Z'
         match = re.match(regex, path)
         if match is not None:
             break
@@ -87,8 +87,7 @@ def main():
 @dispatch('')
 @dispatch('history')
 def show_history(options, project):
-    url = 'https://ci.appveyor.com/api/projects/{project}/history?recordsNumber=10'
-    url = url.format(project=project)
+    url = f'https://ci.appveyor.com/api/projects/{project}/history?recordsNumber=10'
     data = get_json(url)
     for build in data['builds']:
         template = '{version} {branch} {status}'
@@ -103,8 +102,8 @@ def show_history(options, project):
             branch=build['branch'],
             status=build['status'],
         )
-        url = 'https://ci.appveyor.com/project/{project}/build/{version}'
-        url = url.format(project=project, version=build['version'])
+        version = build['version']
+        url = f'https://ci.appveyor.com/project/{project}/build/{version}'
         template = '{t.cyan}'
         if curious:
             template += '{t.bold}'
@@ -114,8 +113,7 @@ def show_history(options, project):
 
 @dispatch(r'build/(?P<version>[^/\s]+)')
 def show_build(options, project, version):
-    url = 'https://ci.appveyor.com/api/projects/{project}/build/{version}'
-    url = url.format(project=project, version=version)
+    url = f'https://ci.appveyor.com/api/projects/{project}/build/{version}'
     data = get_json(url)
     data = data['build']['jobs']
     for job in data:
@@ -128,8 +126,8 @@ def show_build(options, project, version):
             template = '{t.bold}{t.red}' + template
         template += '{t.off}'
         lib.colors.print(template, version=version, name=job['name'])
-        url = 'https://ci.appveyor.com/project/{project}/build/{version}/job/{id}'
-        url = url.format(project=project, version=version, id=job['jobId'])
+        job_id = job['jobId']
+        url = f'https://ci.appveyor.com/project/{project}/build/{version}/job/{job_id}'
         template = '{t.cyan}'
         if error:
             template += '{t.bold}'
@@ -139,8 +137,7 @@ def show_build(options, project, version):
 
 @dispatch(r'builds/(?P<build_id>\d+)')
 def show_build_by_id(options, project, build_id):
-    url = 'https://ci.appveyor.com/api/projects/{project}/builds/{id}'
-    url = url.format(project=project, id=build_id)
+    url = f'https://ci.appveyor.com/api/projects/{project}/builds/{build_id}'
     data = get_json(url)
     data = data['build']['jobs']
     for job in data:
@@ -153,8 +150,8 @@ def show_build_by_id(options, project, build_id):
             template = '{t.bold}{t.red}' + template
         template += '{t.off}'
         lib.colors.print(template, name=job['name'])
-        url = 'https://ci.appveyor.com/project/{project}/builds/{build_id}/job/{job_id}'
-        url = url.format(project=project, build_id=build_id, job_id=job['jobId'])
+        job_id = job['jobId']
+        url = f'https://ci.appveyor.com/project/{project}/builds/{build_id}/job/{job_id}'
         template = '{t.cyan}'
         if error:
             template += '{t.bold}'
@@ -164,8 +161,7 @@ def show_build_by_id(options, project, build_id):
 
 @dispatch(r'builds?/[^/\s]+/job/(?P<job_id>\w+)')
 def show_job(options, project, job_id):
-    url = 'https://ci.appveyor.com/api/buildjobs/{id}/console'.format(id=job_id)
-    url = url.format(id=job_id)
+    url = f'https://ci.appveyor.com/api/buildjobs/{job_id}/console'
     with get(url) as fp:
         with io.TextIOWrapper(fp, encoding='UTF-8') as tfp:
             data = tfp.read()
