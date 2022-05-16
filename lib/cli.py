@@ -37,9 +37,9 @@ def get_json(url, headers=()):
 
 _dispatch = []
 
-def dispatch(regex):
+def dispatch(regexp):
     def decorator(cmd):
-        _dispatch.append((regex, cmd))
+        _dispatch.append((regexp, cmd))
         return cmd
     return decorator
 
@@ -72,10 +72,10 @@ def main():
         ap.error('unsupported URL')
     if netloc != 'ci.appveyor.com':
         ap.error('unsupported URL')
-    for regex, cmd in _dispatch:
-        regex = ('/' if regex else '') + regex
-        regex = fr'\A/project/(?P<project>[\w.-]+/[\w.-]+){regex}\Z'
-        match = re.match(regex, path)
+    for regexp, cmd in _dispatch:
+        regexp = ('/' if regexp else '') + regexp
+        regexp = fr'\A/project/(?P<project>[\w.-]+/[\w.-]+){regexp}\Z'
+        match = re.match(regexp, path)
         if match is not None:
             break
     else:
